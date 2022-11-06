@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+    transition: all .8s;
+}
+body{
+    width: 100px;
+    background: linear-gradient(135deg,#c9d6ff,#e2e2e2);
+    height: 100vh;
+}
+
+a{
+    position: relative;
+    display: block;
+    width: 450px;
+    height: 60px;
+    background-color: mediumpurple;
+    font-size: 18px;
+    color: white;
+    line-height: 60px;
+    text-align: center;
+    margin-top: 30px;
+    margin-left: 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: 1px 1px 10px 2px rgba(0,0,0,.1);
+}
+body :nth-child(3n+1){
+    background-color: mediumturquoise;
+}
+body :nth-child(3n+2){
+    background-color: mediumspringgreen;
+}
+a:hover{
+    background-color: #fac03d;
+}
