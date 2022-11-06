@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            transition: all .2s;
+        }
+        body{
+            background-color: rgba(124, 120, 120, 0.3);
+            margin: 0 150px;
+        }
+        p{
+            text-indent: 2em;
+        }
+        pre{
+            overflow: hidden;
+            color: gray;
+            background-color: lightgray;
+            padding: 10px;
+            border-radius: 9px;
+            box-shadow: 1px 2px 20px rgba(0,0,0,0.1);
+            font-family: Consolas,serif;
+        }
+        pre:hover{
+            color: white;
+            background-color: darkgray;
+        }
+        figure{
+            text-align: center;
+        }
+        figure img{
+            width: 400px;
+            border-radius: 6px;
+        }
+
+        a{
+            text-decoration: none;
+            color:rgba(0,0,0,.3);
+        }
+        a:hover,span{
+            color:#de5b5b;
+        }
+        .key{
+            width:100px;
+            padding: 10px;
+        }
+        .value{
+            width:235px;
+        }
+        table,tr,td{
+            padding: 0;
+            /*margin: 0;*/
+        }
+        td{
+            height: 30px;
+            border-bottom: 1px dotted gray;
+            font-size: 14px;
+        }
+        tr:hover{
+            /*background-color: red;*/
+            transform: scale(1.1,1.18);
+        }
+        tr td:nth-child(odd){
+            color:#999999;
+            font-weight: bold;
+        }
+        tr td:nth-child(even){
+            font-weight: lighter;
+        }
+
+    </style>
+</head>
+<body>
+    <h1 align="center">Hello World</h1>
+    <p>作为程序员来说，我们对于<span>Hello World</span>这个短语十分熟悉，这是因为在新手期的学习中，又或者是平时开发调试中，都习惯性地来敲打这句话来检验自己的代码</p>
+    <table align="center" id="table">
+        <colgroup>
+            <col class="key"/>
+            <col class="value"/>
+            <col class="key"/>
+            <col class="value"/>
+        </colgroup>
+        <tr>
+            <td>中文名</td>
+            <td>你好，世界</td>
+            <td>类型</td>
+            <td>程序代码</td>
+        </tr>
+        <tr>
+            <td>外文名</td>
+            <td>Hello World</td>
+            <td>出处</td>
+            <td><a href="#">《The C Programming Language》</a></td>
+        </tr>
+        <tr>
+            <td>创造者</td>
+            <td>Brian Kernighan</td>
+            <td>场景</td>
+            <td>计算机编程</td>
+        </tr>
+    </table>
+    <figure>
+        <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Foss-cn-hangzhou.aliyuncs.com%2Fcodingsky%2Fcdn%2Fimg%2F2020-06-01%2F6e063be06193ae5af8c4b178503933da&refer=http%3A%2F%2Foss-cn-hangzhou.aliyuncs.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1666695438&t=72cb6914f1f9ab1af723382ea12d733c" alt="Hello World">
+    </figure>
+    <p>下面就来演示各种语言版本的<span>Hello World</span>的输出实现</p>
+    <ul>
+        <li><a href="#java">Java</a></li>
+        <li><a href="#py">Python</a></li>
+        <li><a href="#cpp">C++</a></li>
+        <li><a href="#js">Javascript</a></li>
+        <li><a href="#more">更多语言</a></li>
+    </ul>
+    <hr/>
+
+    <div>
+        <h2 id="java">Java</h2>
+ <pre>public class Hello{
+    public static void main(String[] args){
+        System.out.println("Hello World");
+    }
+}</pre>
+    </div>
+
+    <div>
+        <h2 id="py">Python</h2>
+        <pre>print('Hello World')</pre>
+    </div>
+
+    <div>
+        <h2 id="cpp">C++</h2>
+<pre>#include&lt;iostream&gt;
+using namespace std;
+int main(void){
+    cout<<"Hello World";
+    return 0;
+}</pre>
+    </div>
+    <div>
+        <h2 id="js">JavaScript</h2>
+
+    <pre>console.log('Hello World');</pre>
+    </div>
+    <div>
+        <h2>更多语言版本</h2>
+        <p>这里不提供，请去百度搜索<a href="https://www.baidu.com/s?wd=helloworld">Hello World</a></p>
+    </div>
+
+</body>
+</html>
