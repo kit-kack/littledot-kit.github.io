@@ -1,12 +1,274 @@
-  <!DOCTYPE html>  
-  <html lang="en">
-  <head>
-      <meta charset="utf-8">
-      <title>Document</title>
-  </head>
-  <body>
-      Hello World! <br>
-      <a href="./html/jsdemo.html">This is the collection for learning javascript</a> <br>
-      <a href="./html/demo.html">This is the collection of small demos</a> <br>
-  </body>
-  </html>    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            transition: all .8s;
+        }
+        body {
+            background-color: #ccc;
+        }
+        
+        
+        .orange {
+            background-color: #e1b17e;
+        }
+        .green{
+            background-color: #68be8d;
+        }
+        .blue{
+            background-color: #98c9df;
+        }
+        .purple{
+            background-color: #867ba9;
+        }
+        a{
+            text-decoration: none;
+            color: white;
+        }
+        a:hover{
+            color: #dd7a56;
+            text-shadow: 0 0 4px rgba(255,255,255,.5);
+        }
+        a:hover::before{
+            opacity: 1;
+            color: white;
+            animation: rotate 2s infinite alternate;
+        }
+        a::before{
+            display: block;
+            position: absolute;
+            left: 4px;
+            content:'❄';
+            width: 22px;
+            height: 22px;
+            font-size: 22px;
+            text-align: center;
+            line-height: 22px;
+            opacity: 0;
+        }
+
+
+        @keyframes rotate {
+            to{
+                transform: rotate(720deg);
+            }
+        }
+        #outer {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 4px;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, .2);
+        }
+
+        #outer div {
+            overflow: hidden;
+            position: relative;
+            float: left;
+            margin: 0 2px;
+            width: 70px;
+            height: 70px;
+            border-radius: 4px;
+            color:#666;
+            font-size: 18px;
+            font-family: Consolas, serif;
+            font-style: oblique;
+            cursor: pointer;
+        }
+        #outer div span{
+            display: block;
+            width: 70px;
+            height: 50px;
+            background-color: rgba(255,255,255,.2);
+            text-align: center;
+            line-height: 50px;
+            transform: translateY(100px);
+        }
+        #outer div:hover span{
+            transform: translateY(20px);
+        }
+
+
+        #circle {
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, .3);
+            box-shadow: 0 0 10px 2px rgba(0,0,0,.05);
+            border-radius: 50%;
+            margin: 140px auto;
+            animation: none;
+        }
+        #number{
+            position: absolute;
+            left:50%;
+            top:170px;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 30px;
+        }
+
+        @keyframes wave {
+            to{
+                transform: scale(.8,.8);
+            }
+        }
+        #mode{
+            position: absolute;
+            left:50%;
+            transform: translateX(50px);
+            top:237px;
+            width: 10px;
+            height: 10px;
+            background-color: #e60012;
+            border-radius: 50%;
+            opacity: 1;
+        }
+        #music{
+            width: 240px;
+            height: 180px;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            color: white;
+            /*color:#eee;*/
+            transition: all .4s;
+            background-color: rgba(255,255,255,.2);
+        }
+        #music p{
+            transition: all .1s;
+        }
+        #music span{
+            float: right;
+            font-size: 12px;
+            transition: all .1s;
+        }
+        #music:hover{
+            box-shadow: 0 0 10px rgba(255,255,255,.5);
+        }
+        #music p::selection,#music span::selection{
+            color: white;
+        }
+        #sp{
+            position: absolute;
+            top:40%;
+            left:50%;
+            transform: translateX(-50%);
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<!-- html主体代码部分-->
+<div id="circle"></div>
+<span id ="number">0</span>
+<div id="mode"></div>
+<div id="sp">
+    <div id="music">
+        <p>点击颜色块</p>
+        <p>可以用来切换播放主题</p>
+        <p>也可以开启和暂停计时器</p>
+        <p>一轮计时完后自动切换主题</p>
+        <span>tips</span>
+    </div>
+</div>
+<div id="outer">
+    <div class="orange">
+        <span>Orange</span>
+    </div>
+    <div class="green">
+        <span>Green</span>
+    </div>
+    <div class="blue">
+        <span>Blue</span>
+    </div>
+    <div class="purple">
+        <span>Purple</span>
+    </div>
+</div>
+
+<!-- JS代码主体部分 -->
+<script>
+    var outer = document.getElementById('outer');
+    var circle = document.getElementById('circle');
+    var number = document.getElementById('number');
+    var modeNode = document.getElementById('mode');
+    var music = document.getElementById('music');
+    var array = ['orange','green','blue','purple']
+    var num = 0;  // 计时器数值
+    var flag = false;  // 是否开启 计时功能
+    var func;  // Timer调度任务
+    var mode = 0;  // 选择的颜色块
+    document.oncopy = ()=>false;
+    document.ondragstart = ()=>false;
+    document.onmousedown = ()=>false;
+    document.oncontextmenu = ()=>false;
+    document.onkeydown = ()=>false;
+    var songs = {
+        0:{
+            song:['你知道就算大雨让这座城市颠倒','我会给你怀抱','受不了看见你背影来到','写下我度秒如年难捱的离骚'],
+            source: '<a href="https://www.baidu.com/s?wd=一直很安静">《小情歌》</a>'
+        },
+        1:{
+            song:['我没有放弃','也不会离你而去','哪怕要分开','我依然等你'],
+            source:'<a href="https://www.baidu.com/s?wd=六月的雨">《六月的雨》</a>'
+        },
+        2:{
+            song:['当恩怨各一半','我怎么圈揽','看灯笼血红染','寻仇已太晚'],
+            source:'<a href="https://www.baidu.com/s?wd=宿敌歌曲">《宿敌》</a>'
+        },
+        3:{
+            song:['感谢你特别邀请','来见证你的爱情','我时刻提醒自己','别逃避'],
+            source:'<a href="https://www.baidu.com/s?wd=张远嘉宾">《嘉宾》</a>'
+        }
+    }
+    function setSongAndStyle(index){
+        document.body.className = array[index];
+        music.children[0].innerText = songs[index].song[0];
+        music.children[1].innerText = songs[index].song[1];
+        music.children[2].innerText = songs[index].song[2];
+        music.children[3].innerText = songs[index].song[3];
+        music.children[4].innerHTML = songs[index].source;
+    }
+
+
+    outer.onclick = (event) => {
+        var div = event.target.closest('div');
+        if (div == null || div === outer)
+            return;
+        mode = array.indexOf(div.className);
+        setSongAndStyle(mode);
+        flag = !flag;
+        if (flag) {
+            modeNode.style.opacity = '0';
+            circle.style.animation = "wave 2s ease-in-out alternate infinite";
+            func = setInterval(() => {
+                num++;
+                if (num === 10) {
+                    num = 0;
+                    // mode 0- 3 正常
+                    // mode 4- 5 反向 2 - 1
+                    // todo: 这里代表生命
+                    // fixme: 温度计法律的纠纷的了解到分类代理费
+
+                    mode = (mode + 1) % 6;
+                    setSongAndStyle(mode <4? mode: 6-mode);
+                }
+
+                number.innerText = num;
+            }, 1000)
+        } else {
+            clearInterval(func);
+            modeNode.style.opacity = '1';
+            circle.style.animation = "";
+        }
+    }
+    // setSongAndStyle(0);
+</script>
+</body>
+</html>
